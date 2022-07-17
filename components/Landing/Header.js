@@ -43,9 +43,9 @@ export default function Header() {
           Get endless entertainement, live sports, and the shows and movies you
           love.
         </Text>
-        <TouchableOpacity className="bg-[#01ED83] py-4 px-10 rounded-md">
+        <TouchableOpacity className="bg-[#01ED83] py-4 w-72 flex flex-row justify-center items-center rounded-md">
           <Text className="text-black font-bold uppercase">
-            Get the disney bundle
+            Log in
           </Text>
         </TouchableOpacity>
       </View>
