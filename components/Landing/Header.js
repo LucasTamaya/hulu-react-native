@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import React from "react";
 
-export default function Header() {
+export default function Header({ navigation }) {
   const windowHeight = Dimensions.get("window").height;
 
   return (
@@ -25,7 +25,7 @@ export default function Header() {
           source={require("../../assets/images/logo.png")}
           className="w-[60px] h-[20px]"
         />
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Login")}>
           <Text className="text-white text-lg font-bold">LOG IN</Text>
         </TouchableOpacity>
       </View>
@@ -43,10 +43,11 @@ export default function Header() {
           Get endless entertainement, live sports, and the shows and movies you
           love.
         </Text>
-        <TouchableOpacity className="bg-[#01ED83] py-4 w-72 flex flex-row justify-center items-center rounded-md">
-          <Text className="text-black font-bold uppercase">
-            Log in
-          </Text>
+        <TouchableOpacity
+          className="bg-[#01ED83] py-4 w-72 flex flex-row justify-center items-center rounded-md"
+          onPress={() => navigation.navigate("Login")}
+        >
+          <Text className="text-black font-bold uppercase">Log in to my account</Text>
         </TouchableOpacity>
       </View>
     </View>

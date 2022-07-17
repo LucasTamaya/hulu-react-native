@@ -1,4 +1,4 @@
-import { View, Text, ScrollView } from "react-native";
+import { ScrollView } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -7,14 +7,14 @@ import AllTheTvYouLove from "../components/Landing/AllTheTvYouLove";
 import LiveTvMakesItBetter from "../components/Landing/LiveTvMakesItBetter";
 import Events from "../components/Landing/Events";
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
   return (
     <SafeAreaView>
       <ScrollView>
-        <Header />
+        <Header navigation={navigation} />
         <AllTheTvYouLove />
         <LiveTvMakesItBetter />
-        <Events />
+        <Events navigation={navigation} />
       </ScrollView>
     </SafeAreaView>
   );

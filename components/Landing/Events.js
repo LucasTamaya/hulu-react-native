@@ -9,7 +9,7 @@ import React, { useState } from "react";
 
 import eventsData from "../../utils/eventsData";
 
-const Events = () => {
+const Events = ({ navigation }) => {
   const [index, setIndex] = useState(0);
 
   return (
@@ -59,46 +59,15 @@ const Events = () => {
               {eventsData[index].description}
             </Text>
 
-            <TouchableOpacity className="bg-[#01ED83] py-4 w-72 flex flex-row justify-center items-center rounded-md">
-              <Text className="uppercase text-black font-bold">Log in</Text>
+            <TouchableOpacity
+              className="bg-[#01ED83] py-4 w-72 flex flex-row justify-center items-center rounded-md"
+              onPress={() => navigation.navigate("Login")}
+            >
+              <Text className="uppercase text-black font-bold">
+                Log in to my account
+              </Text>
             </TouchableOpacity>
           </View>
-
-          {/* <View className="flex flex-row items-center gap-x-6">
-            <View className="w-[50px] h-[50px] rounded-full bg-white flex flex-row justify-center items-center">
-              <Image
-                source={require("../../assets/images/live-sports-logo-1.png")}
-                className="w-[70px] h-[40px]"
-                alt="live sport logo"
-              />
-            </View>
-            <View className="w-[50px] h-[50px] rounded-full bg-white flex justify-center items-center">
-              <Image
-                source={require("../../assets/images/live-sports-logo-2.png")}
-                className="w-[70px] h-[40px]"
-                alt="live sport logo"
-              />
-            </View>
-            <View className="w-[50px] h-[50px] rounded-full bg-white flex justify-center items-center">
-              <Image
-                source={require("../../assets/images/live-sports-logo-3.svg")}
-                className="w-[70px] h-[40px]"
-                alt="live sport logo"
-              />
-            </View>
-            <View className="w-[50px] h-[50px] rounded-full bg-white flex justify-center items-center">
-              <Image
-                source={require("../../assets/images/live-sports-logo-4.png")}
-                className="w-[70px] h-[40px]"
-                alt="live sport logo"
-              />
-            </View>
-          </View> */}
-          {/* <Text className="text-[#cccccc] text-xs text-center px-5 ">
-            Live TV plan required. Regional restrictions, blackouts and
-            additional terms apply.{" "}
-            <Text className="underline cursor-pointer">See details</Text>
-          </Text> */}
         </View>
       </ImageBackground>
     </ScrollView>
