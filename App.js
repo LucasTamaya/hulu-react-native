@@ -5,8 +5,9 @@ import { TailwindProvider } from "tailwindcss-react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import HomeScreen from "./screens/HomeScreen";
-import Login from "./components/Landing/Login";
-import Register from "./components/Landing/Register";
+import LoginScreen from "./screens/LoginScreen";
+import RegisterScreen from "./screens/RegisterScreen";
+import CatalogScreen from "./screens/CatalogScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -17,8 +18,9 @@ export default function App() {
         <SafeAreaProvider>
           <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name="Home" component={HomeScreen} />
-            <Stack.Screen name="Login" component={Login} />
-            <Stack.Screen name="Register" component={Register} />
+            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="Register" component={RegisterScreen} />
+            <Stack.Screen name="Catalog" component={CatalogScreen} />
           </Stack.Navigator>
         </SafeAreaProvider>
         <StatusBar style="auto" />
