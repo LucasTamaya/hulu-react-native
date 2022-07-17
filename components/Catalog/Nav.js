@@ -1,40 +1,40 @@
 import { ScrollView, Text, TouchableOpacity } from "react-native";
 import React from "react";
 
-const Nav = () => {
+const Nav = ({ setIndex }) => {
   return (
     <ScrollView horizontal={true} className="flex-row gap-x-10 mt-7">
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => setIndex(0)}>
         <Text className="text-white font-bold text-lg pl-10">Trending</Text>
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => setIndex(2)}>
         <Text className="text-white font-bold text-lg">Top Rated</Text>
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => setIndex(3)}>
         <Text className="text-white font-bold text-lg">Action</Text>
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => setIndex(4)}>
         <Text className="text-white font-bold text-lg">Comedy</Text>
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => setIndex(5)}>
         <Text className="text-white font-bold text-lg">Horror</Text>
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => setIndex(6)}>
         <Text className="text-white font-bold text-lg">Romance</Text>
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => setIndex(7)}>
         <Text className="text-white font-bold text-lg">Mystery</Text>
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => setIndex(8)}>
         <Text className="text-white font-bold text-lg">SciFi</Text>
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => setIndex(9)}>
         <Text className="text-white font-bold text-lg">Western</Text>
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => setIndex(0)}>
         <Text className="text-white font-bold text-lg">Animation</Text>
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => setIndex(0)}>
         <Text className="text-white font-bold text-lg">TV Movie</Text>
       </TouchableOpacity>
     </ScrollView>
