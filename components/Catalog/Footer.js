@@ -9,17 +9,17 @@ import {
 
 const Footer = () => {
   return (
-    <View className="fixed bottom-0 left-0 w-full flex-row items-center justify-around bg-[#2e2e30] py-5">
-      <TouchableOpacity>
+    <View className="fixed bottom-0 left-0 w-full flex-row items-center justify-around bg-[#2e2e30]">
+      <TouchableOpacity className="p-2">
         <HomeIcon size={30} color="#fff" />
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity className="p-2">
         <HeartIcon size={30} color="#fff" />
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity className="p-2">
         <SearchIcon size={30} color="#fff" />
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity className="p-2">
         <UserIcon size={30} color="#fff" />
       </TouchableOpacity>
     </View>

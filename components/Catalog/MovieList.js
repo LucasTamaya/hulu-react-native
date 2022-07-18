@@ -11,12 +11,11 @@ const MovieList = ({ index }) => {
   const getData = async () => {
     // récupère l'url dans la liste des requêtes à l'index correspondant, par défault index = 0
     const url = requests[index];
-    console.log(url);
 
     try {
       const data = await axios.get(url);
-      console.log(data.data.results);
       setData(data.data.results);
+      console.log("nouvelle data reçu");
     } catch (error) {
       console.log(error);
     }
