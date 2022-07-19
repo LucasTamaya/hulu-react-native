@@ -11,8 +11,11 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
 
-import { auth } from "../firebase";
+import { auth, db } from "../firebase-config";
+import { setAsyncData } from "../utils/asyncStorage";
 
 const RegisterScreen = ({ navigation }) => {
   const windowHeight = Dimensions.get("window").height;
@@ -22,14 +25,26 @@ const RegisterScreen = ({ navigation }) => {
 
   const handleRegister = () => {
     // Enregistrement du nouvel utilisateur grâce l'api de firebase
-    auth
-      .createUserWithEmailAndPassword(email, password)
-      .then((userCredentials) => {
-        const user = userCredentials.user;
-        console.log("Nouvel utilisateur enregistré avec l'email: ", user.email);
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
         navigation.navigate("Catalog");
+        console.log("Nouvel utilisateur crée: ", user.email);
+        return user.uid;
       })
-      .catch((error) => console.log(error.message));
+      .then((uid) => {
+        // sauvegarde le user id dans async storage
+        setAsyncData(uid);
+        return uid;
+      })
+      .then((uid) => {
+        const userRef = doc(db, "users", uid);
+        setDoc(userRef, { moviesList: [] });
+        console.log("uid enregistrer dans firebase");
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
   };
 
   return (

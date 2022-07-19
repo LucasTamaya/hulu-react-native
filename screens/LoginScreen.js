@@ -11,8 +11,11 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
 
-import { auth } from "../firebase";
+import { auth, db } from "../firebase-config";
+import { getAsyncData, setAsyncData } from "../utils/asyncStorage";
 
 const LoginScreen = ({ navigation }) => {
   const windowHeight = Dimensions.get("window").height;
@@ -22,14 +25,20 @@ const LoginScreen = ({ navigation }) => {
 
   const handleLogin = () => {
     // Connexion au compte utilisateur grâce à l'api firebase
-    auth
-      .signInWithEmailAndPassword(email, password)
-      .then((userCredentials) => {
-        const user = userCredentials.user;
-        console.log("Connecté avec le compte: ", user.email);
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
         navigation.navigate("Catalog");
+        console.log("Connecté avec l'UID: ", user.uid);
+        return user.uid;
       })
-      .catch((error) => console.log(error.message));
+      .then((uid) => {
+        // sauvegarde le user id dans async storage
+        setAsyncData(uid);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
   };
 
   return (

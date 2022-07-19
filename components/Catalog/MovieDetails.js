@@ -1,13 +1,17 @@
 import { View, Text, TouchableOpacity } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import {
   ThumbUpIcon,
   HeartIcon as HeartIconSolid,
 } from "react-native-heroicons/solid";
 import { HeartIcon as HeartIconOutlined } from "react-native-heroicons/outline";
+import { arrayUnion, updateDoc } from "firebase/firestore";
 
-const MovieDetails = ({ data }) => {
-  const [save, setSave] = useState(false);
+const MovieDetails = ({ data, save, setSave, docRef }) => {
+  const saveFilm = async () => {
+    // update de la liste des films sauvegardés
+    await updateDoc(docRef, { moviesList: arrayUnion(data.id) });
+  };
 
   return (
     <View className="absolute top-0 left-0 bg-[#2e2e30]/90 w-full h-full p-4">
@@ -27,7 +31,14 @@ const MovieDetails = ({ data }) => {
         </View>
       </View>
       <TouchableOpacity
-        onPress={() => setSave(!save)}
+        onPress={() => {
+          if (save) {
+            setSave(!save);
+          } else {
+            setSave(!save);
+            saveFilm();
+          }
+        }}
         className="w-[30px] h-[30px] flex-row justify-center items-center"
       >
         {save ? (
