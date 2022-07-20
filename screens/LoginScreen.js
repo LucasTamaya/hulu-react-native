@@ -61,6 +61,7 @@ const LoginScreen = ({ navigation }) => {
               <TextInput
                 className="border-2 border-black px-4 py-2 rounded"
                 onChangeText={(text) => setEmail(text)}
+                keyboardType="email-address"
               />
             </KeyboardAvoidingView>
             <KeyboardAvoidingView className="mb-10">

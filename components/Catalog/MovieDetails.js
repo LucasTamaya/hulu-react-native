@@ -5,12 +5,16 @@ import {
   HeartIcon as HeartIconSolid,
 } from "react-native-heroicons/solid";
 import { HeartIcon as HeartIconOutlined } from "react-native-heroicons/outline";
-import { arrayUnion, updateDoc } from "firebase/firestore";
+import { arrayRemove, arrayUnion, updateDoc } from "firebase/firestore";
 
 const MovieDetails = ({ data, save, setSave, docRef }) => {
   const saveFilm = async () => {
     // update de la liste des films sauvegardés
     await updateDoc(docRef, { moviesList: arrayUnion(data.id) });
+  };
+
+  const unsaveFilm = async () => {
+    await updateDoc(docRef, { moviesList: arrayRemove(data.id) });
   };
 
   return (
@@ -34,6 +38,7 @@ const MovieDetails = ({ data, save, setSave, docRef }) => {
         onPress={() => {
           if (save) {
             setSave(!save);
+            unsaveFilm();
           } else {
             setSave(!save);
             saveFilm();

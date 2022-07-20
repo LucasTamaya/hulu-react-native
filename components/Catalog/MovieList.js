@@ -19,16 +19,7 @@ const MovieList = ({ index, docRef }) => {
     } catch (error) {
       console.log(error);
     }
-    // try {
-    //   const res = await axios.get(
-    //     "https://api.themoviedb.org/3/movie/361743?api_key=67ea53fab6a24f08319cfd99f6353d06&language=fr-FR"
-    //   );
-    //   console.log(res.data);
-    // } catch (error) {
-    //   console.log(error);
-    // }
   };
-
   useEffect(() => {
     getData();
   }, [index]);
