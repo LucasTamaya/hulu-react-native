@@ -16,6 +16,10 @@ const MovieCard = ({ data, docRef }) => {
     // si le document existe
     if (docSnap.exists()) {
       const filmIds = docSnap.data().moviesList;
+      // si le document est vide
+      if (filmIds.length === 0) {
+        return;
+      }
       // comparaison de l'id du film qu'on observe avec celui de la liste dans firebase, afin de voir si il a été sauvegardé ou non, pour adapter l'icon dans les détails
       filmIds.map((id) => {
         if (id === data.id) {
@@ -24,7 +28,7 @@ const MovieCard = ({ data, docRef }) => {
         }
       });
     } else {
-      console.error("erreur, aucun document reçu");
+      console.log("erreur, aucun document reçu");
     }
   };
 

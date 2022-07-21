@@ -5,7 +5,7 @@ import {
   Dimensions,
   TouchableOpacity,
   KeyboardAvoidingView,
-  Keyboard,
+  TouchableWithoutFeedback,
 } from "react-native";
 import React, { useState } from "react";
 import {
@@ -13,84 +13,137 @@ import {
   reauthenticateWithCredential,
   EmailAuthProvider,
 } from "firebase/auth";
+import { Controller, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 import { auth } from "../../../firebase-config";
+import { updatePwdValidationSchema } from "../../../utils/validationSchemas";
+import SuccessMessage from "../../StateMessages/SuccessMessage";
+import ErrorMessage from "../../StateMessages/ErrorMessage";
 
 const ChangePassword = ({ setChangePasswordPopUp }) => {
   const windowHeight = Dimensions.get("window").height;
 
-  const [currentPassword, setCurrentPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  let user = auth.currentUser;
+  // tous les outils nécessaires afin de gérer mon formulaire
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(updatePwdValidationSchema),
+  });
 
-  const handleInput = () => {
-    // si inputs vide on ne fait rien
-    // if (password === "") {
-    //   Keyboard.dismiss();
-    //   return;
-    // }
-    // si inputs non vide, on récupère les credits de l'utilisateur = email + mot de passe actuel
+  let user = auth.currentUser;
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
+  const handleInput = (input) => {
+    // on récupère les credits de l'utilisateur: email + mot de passe
     const credential = EmailAuthProvider.credential(
       user.email,
-      currentPassword
+      input.currentPassword
     );
 
-    // on réauthentifie l'utilisateur afin de réduire les problèmes de sécurité
+    // on réauthentifie l'utilisateur afin de s'assurer qu'il connaisse le mot de passe actuel, avant de le modifier
     reauthenticateWithCredential(user, credential)
       // si la réauthentification est réussie
       .then(() => {
-        console.log("reauthentifiacation réussi");
+        console.log("réauthentification réussi");
         // on met à jour le mot de passe
-        updatePassword(user, newPassword)
+        updatePassword(user, input.newPassword)
           .then(() => {
-            console.log("update du mot de passe réussi");
+            setError("");
+            // affichage du message de réussite
+            setSuccess("Mot de passe modifié");
+            // marque un petit temps d'arrêt pour afficher le message
+            setTimeout(() => {
+              // fermeture du pop up
+              setChangePasswordPopUp(false);
+            }, 2000);
           })
           .catch((error) => {
             console.log(error.message);
+            setError("Une erreur inconnue est survenue");
           });
       })
       // sinon, on affiche un message d'erreur
-      .catch((error) => console.error(error.message));
+      .catch((error) => {
+        console.log(error.message);
+        setError("Mot de passe actuel invalide");
+      });
   };
 
   return (
     <View
-      className="absolute w-full bg-black/70 flex-row justify-center items-center px-5"
+      className="absolute top-0 left-0 w-full flex flex-col justify-center items-center bg-black/70 px-5"
       style={{ height: windowHeight }}
     >
-      <View className="w-full bg-white rounded-md p-5">
-        <KeyboardAvoidingView>
-          <Text className="font-bold mb-2 uppercase">Mot de passe actuel</Text>
-          <TextInput
-            className="border-2 border-black px-4 py-2 rounded"
-            value={currentPassword}
-            onChangeText={(text) => setCurrentPassword(text)}
+      <View className="bg-white w-full p-5 rounded-md">
+        <Text className="font-bold mb-2 uppercase">Mot de passe actuel</Text>
+        <KeyboardAvoidingView className="mb-10">
+          <Controller
+            control={control}
+            name="currentPassword"
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <View>
+                <TextInput
+                  value={value || ""}
+                  className="border-2 border-black px-4 py-2 rounded"
+                  onChangeText={onChange}
+                  secureTextEntry={true}
+                />
+                {/* Message d'erreur, si erreur il y a */}
+                {!!error && (
+                  <Text className="text-red-500 text-xs">{error?.message}</Text>
+                )}
+              </View>
+            )}
           />
         </KeyboardAvoidingView>
 
-        <KeyboardAvoidingView>
+        <KeyboardAvoidingView className="mb-10">
           <Text className="font-bold mb-2 uppercase">Nouveau mot de passe</Text>
-          <TextInput
-            className="border-2 border-black px-4 py-2 rounded"
-            value={newPassword}
-            onChangeText={(text) => setNewPassword(text)}
+          <Controller
+            control={control}
+            name="newPassword"
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <View>
+                <TextInput
+                  value={value || ""}
+                  className="border-2 border-black px-4 py-2 rounded"
+                  onChangeText={onChange}
+                  secureTextEntry={true}
+                  keyboardType="web-search"
+                  onSubmitEditing={handleSubmit(handleInput)}
+                />
+                {/* Message d'erreur, si erreur il y a */}
+                {!!error && (
+                  <Text className="text-red-500 text-xs">{error?.message}</Text>
+                )}
+              </View>
+            )}
           />
         </KeyboardAvoidingView>
-        <View className="flex-row items-center gap-x-5 mt-5">
-          <TouchableOpacity
-            className="bg-[#00ed82] rounded-md flex-[0.5] flex-row justify-center items-center"
-            onPress={handleInput}
-          >
-            <Text className="font-bold p-3">Confirmer</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            className="bg-[#2e2e30] rounded-md flex-[0.5] flex-row justify-center items-center"
-            onPress={() => setChangePasswordPopUp(false)}
-          >
-            <Text className="text-white font-bold p-3">Annuler</Text>
-          </TouchableOpacity>
-        </View>
+
+        <TouchableOpacity
+          className="w-full py-4 flex flex-row justify-center items-center bg-[#01ED83] rounded-md mb-5"
+          onPress={handleSubmit(handleInput)}
+        >
+          <Text className="uppercase text-black font-bold">Modifier</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          className="w-full py-4 flex flex-row justify-center items-center bg-[#2e2e30] rounded-md"
+          onPress={() => setChangePasswordPopUp(false)}
+        >
+          <Text className="uppercase text-white font-bold">Annuler</Text>
+        </TouchableOpacity>
       </View>
+      {/* Si aucune erreur lors de la requête */}
+      {success ? <SuccessMessage message={success} /> : <></>}
+
+      {/* Si erreur lors de la requête */}
+      {error ? <ErrorMessage message={error} /> : <></>}
     </View>
   );
 };

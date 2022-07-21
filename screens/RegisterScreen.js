@@ -9,24 +9,34 @@ import {
   TouchableWithoutFeedback,
   TouchableOpacity,
 } from "react-native";
-import React, { useState } from "react";
+import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
+import { Controller, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 import { auth, db } from "../firebase-config";
 import { setAsyncData } from "../utils/asyncStorage";
+import { registerValidationSchema } from "../utils/validationSchemas";
+import SuccessMessage from "../components/StateMessages/SuccessMessage";
+import ErrorMessage from "../components/StateMessages/ErrorMessage";
 
 const RegisterScreen = ({ navigation }) => {
   const windowHeight = Dimensions.get("window").height;
 
-  const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  // tous les outils nécessaires afin de gérer mon formulaire
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(registerValidationSchema),
+  });
 
-  const handleRegister = () => {
+  const handleRegister = (input) => {
     // Enregistrement du nouvel utilisateur grâce l'api de firebase
-    createUserWithEmailAndPassword(auth, email, password)
+    createUserWithEmailAndPassword(auth, input.email, input.password)
       .then((userCredential) => {
         const user = userCredential.user;
         navigation.navigate("Catalog");
@@ -41,7 +51,7 @@ const RegisterScreen = ({ navigation }) => {
       .then((uid) => {
         // crée un document pour l'utilisateur dans firebase avec un tableau vide qui va contenir la liste d'IDS des films sauvegardés + son nom d'utilisateur
         const userRef = doc(db, "users", uid);
-        setDoc(userRef, { moviesList: [], username });
+        setDoc(userRef, { moviesList: [] });
         console.log("uid enregistrer dans firebase");
       })
       .catch((error) => {
@@ -66,39 +76,101 @@ const RegisterScreen = ({ navigation }) => {
             <Text className="text-black font-bold text-3xl mb-10">
               Register
             </Text>
+
+            <Text className="font-bold mb-2 uppercase">Nom d'utilisateur</Text>
             <KeyboardAvoidingView className="mb-10">
-              <Text className="font-bold mb-2 uppercase">Username</Text>
-              <TextInput
-                className="border-2 border-black px-4 py-2 rounded"
-                onChangeText={(text) => setUsername(text)}
+              <Controller
+                control={control}
+                name="username"
+                render={({
+                  field: { onChange, value },
+                  fieldState: { error },
+                }) => (
+                  <View>
+                    <TextInput
+                      value={value || ""}
+                      className="border-2 border-black px-4 py-2 rounded"
+                      onChangeText={onChange}
+                      secureTextEntry={false}
+                    />
+                    {/* Message d'erreur, si erreur il y a */}
+                    {!!error && (
+                      <Text className="text-red-500 text-xs">
+                        {error?.message}
+                      </Text>
+                    )}
+                  </View>
+                )}
               />
             </KeyboardAvoidingView>
+
+            <Text className="font-bold mb-2 uppercase">Email</Text>
             <KeyboardAvoidingView className="mb-10">
-              <Text className="font-bold mb-2 uppercase">Email</Text>
-              <TextInput
-                className="border-2 border-black px-4 py-2 rounded"
-                onChangeText={(text) => setEmail(text)}
-                keyboardType="email-address"
+              <Controller
+                control={control}
+                name="email"
+                render={({
+                  field: { onChange, value },
+                  fieldState: { error },
+                }) => (
+                  <View>
+                    <TextInput
+                      value={value || ""}
+                      className="border-2 border-black px-4 py-2 rounded"
+                      onChangeText={onChange}
+                      keyboardType="email-address"
+                      secureTextEntry={false}
+                    />
+                    {/* Message d'erreur, si erreur il y a */}
+                    {!!error && (
+                      <Text className="text-red-500 text-xs">
+                        {error?.message}
+                      </Text>
+                    )}
+                  </View>
+                )}
               />
             </KeyboardAvoidingView>
+
+            <Text className="font-bold mb-2 uppercase">Mot de passe</Text>
             <KeyboardAvoidingView className="mb-10">
-              <Text className="font-bold mb-2 uppercase">Password</Text>
-              <TextInput
-                className="border-2 border-black px-4 py-2 rounded"
-                secureTextEntry={true}
-                onChangeText={(text) => setPassword(text)}
+              <Controller
+                control={control}
+                name="password"
+                render={({
+                  field: { onChange, value },
+                  fieldState: { error },
+                }) => (
+                  <View>
+                    <TextInput
+                      value={value || ""}
+                      className="border-2 border-black px-4 py-2 rounded"
+                      onChangeText={onChange}
+                      secureTextEntry={true}
+                    />
+                    {/* Message d'erreur, si erreur il y a */}
+                    {!!error && (
+                      <Text className="text-red-500 text-xs">
+                        {error?.message}
+                      </Text>
+                    )}
+                  </View>
+                )}
               />
             </KeyboardAvoidingView>
+
             <TouchableOpacity
               className="w-full py-4 flex flex-row justify-center items-center bg-[#01ED83] rounded-md mb-5"
-              onPress={handleRegister}
+              onPress={handleSubmit(handleRegister)}
             >
-              <Text className="uppercase text-black font-bold">Register</Text>
+              <Text className="uppercase text-black font-bold">
+                Créer mon compte
+              </Text>
             </TouchableOpacity>
             <View className="flex-row items-center">
-              <Text>Already have an account? </Text>
+              <Text>Déjà un compte? </Text>
               <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-                <Text className="text-[#61AFFB]">Log in here</Text>
+                <Text className="text-[#61AFFB] underline">Me connecter</Text>
               </TouchableOpacity>
             </View>
           </View>
