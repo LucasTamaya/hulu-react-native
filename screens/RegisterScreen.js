@@ -21,6 +21,7 @@ const RegisterScreen = ({ navigation }) => {
   const windowHeight = Dimensions.get("window").height;
 
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const handleRegister = () => {
@@ -38,8 +39,9 @@ const RegisterScreen = ({ navigation }) => {
         return uid;
       })
       .then((uid) => {
+        // crée un document pour l'utilisateur dans firebase avec un tableau vide qui va contenir la liste d'IDS des films sauvegardés + son nom d'utilisateur
         const userRef = doc(db, "users", uid);
-        setDoc(userRef, { moviesList: [] });
+        setDoc(userRef, { moviesList: [], username });
         console.log("uid enregistrer dans firebase");
       })
       .catch((error) => {
@@ -66,7 +68,10 @@ const RegisterScreen = ({ navigation }) => {
             </Text>
             <KeyboardAvoidingView className="mb-10">
               <Text className="font-bold mb-2 uppercase">Username</Text>
-              <TextInput className="border-2 border-black px-4 py-2 rounded" />
+              <TextInput
+                className="border-2 border-black px-4 py-2 rounded"
+                onChangeText={(text) => setUsername(text)}
+              />
             </KeyboardAvoidingView>
             <KeyboardAvoidingView className="mb-10">
               <Text className="font-bold mb-2 uppercase">Email</Text>

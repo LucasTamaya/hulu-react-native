@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity } from "react-native";
-import React, { useEffect } from "react";
+import React from "react";
 import {
   ThumbUpIcon,
   HeartIcon as HeartIconSolid,
@@ -22,8 +22,12 @@ const MovieDetails = ({ data, save, setSave, docRef }) => {
       <Text className="text-white text-2xl text-center font-bold mb-3">
         {data.original_title || data.original_name}
       </Text>
-
-      <Text className="text-white text-base mb-3">{data.overview}</Text>
+      <Text
+        numberOfLines={12}
+        className="text-white text-base mb-3 max-h-[310px]"
+      >
+        {data.overview}
+      </Text>
 
       <View className="flex-row items-center justify-between mb-3">
         <Text className="text-sm text-white">

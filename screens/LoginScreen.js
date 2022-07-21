@@ -12,10 +12,9 @@ import {
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
 
-import { auth, db } from "../firebase-config";
-import { getAsyncData, setAsyncData } from "../utils/asyncStorage";
+import { auth } from "../firebase-config";
+import { setAsyncData } from "../utils/asyncStorage";
 
 const LoginScreen = ({ navigation }) => {
   const windowHeight = Dimensions.get("window").height;
