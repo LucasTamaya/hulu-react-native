@@ -37,11 +37,12 @@ const SearchBar = ({ docRef }) => {
       // si des données ont été trouvées
       if (data.data.results.length > 0) {
         setData(data.data.results);
-        // marque un petit temps d'arrêt le temps que la data
+        // marque un petit temps d'arrêt le temps que la data arrive
         setTimeout(() => {
           setLoading(false);
         }, 1800);
       }
+      // si erreur pendant la requête
     } catch (error) {
       console.log(error.message);
       setError("Une erreur au niveau du serveur est survenue...");

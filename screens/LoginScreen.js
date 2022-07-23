@@ -1,7 +1,6 @@
 import {
   View,
   Text,
-  ImageBackground,
   Dimensions,
   TextInput,
   Keyboard,
@@ -69,18 +68,15 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <SafeAreaView>
-        <ImageBackground
-          source={require("../assets/images/header.jpg")}
-          resizeMode="cover"
-          style={{ height: windowHeight }}
-          className="w-full"
-        />
+      <SafeAreaView className="bg-[#151516]">
         <View
-          className="absolute top-0 left-0 w-full flex flex-col justify-center items-center px-5"
+          className="absolute top-0 left-0 w-full flex flex-col justify-center items-center px-5 bg-[#151516]"
           style={{ height: windowHeight }}
         >
           <View className="bg-white w-full p-5 rounded-md">
+            <Text className="text-black font-bold text-3xl mb-10">
+              Connexion
+            </Text>
             <Text className="font-bold mb-2 uppercase">Email</Text>
             <KeyboardAvoidingView className="mb-10">
               <Controller
@@ -124,6 +120,8 @@ const LoginScreen = ({ navigation }) => {
                       className="border-2 border-black px-4 py-2 rounded"
                       onChangeText={onChange}
                       secureTextEntry={true}
+                      keyboardType="web-search"
+                      onSubmitEditing={handleSubmit(handleLogin)}
                     />
                     {/* Message d'erreur, si erreur il y a */}
                     {!!error && (

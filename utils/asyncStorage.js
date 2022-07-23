@@ -1,5 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+// permet d'enregistrer le user id dans une sorte de localStorage comme en JS
 const setAsyncData = async (uid) => {
   try {
     await AsyncStorage.setItem("@user_id", uid);
@@ -8,6 +9,7 @@ const setAsyncData = async (uid) => {
   }
 };
 
+// permet de récupérer le user id depuis le localStorage
 const getAsyncData = async () => {
   try {
     const value = await AsyncStorage.getItem("@user_id");

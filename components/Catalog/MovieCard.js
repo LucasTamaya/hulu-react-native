@@ -27,7 +27,9 @@ const MovieCard = ({ data, docRef }) => {
           return;
         }
       });
-    } else {
+    }
+    // si le document n'existe pas
+    if (!docSnap.exists()) {
       console.log("erreur, aucun document reçu");
     }
   };

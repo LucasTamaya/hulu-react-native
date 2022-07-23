@@ -50,7 +50,7 @@ const SettingsScreen = ({ navigation }) => {
         <View className="border-t border-b border-white">
           <TouchableOpacity
             className="flex-row justify-between items-center p-5"
-            onPress={() => {}}
+            onPress={() => {navigation.navigate("Legal")}}
           >
             <View className="flex-row items-center">
               <InformationCircleIcon size={20} color="#fff" />

@@ -1,4 +1,4 @@
-import { Button, ScrollView } from "react-native";
+import { ScrollView } from "react-native";
 import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { doc } from "firebase/firestore";
@@ -31,10 +31,6 @@ const CatalogScreen = ({ navigation }) => {
       <ScrollView className="bg-[#151516]">
         <Header />
         <Nav setIndex={setIndex} />
-        <Button
-          title="return to home"
-          onPress={() => navigation.navigate("Home")}
-        />
         <MovieList index={index} docRef={docRef} />
       </ScrollView>
       <Footer navigation={navigation} />

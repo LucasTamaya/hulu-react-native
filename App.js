@@ -11,6 +11,7 @@ import CatalogScreen from "./screens/CatalogScreen";
 import SavedFilmsScreen from "./screens/SavedFilmsScreen";
 import SearchScreen from "./screens/SearchScreen";
 import SettingsScreen from "./screens/SettingsScreen";
+import LegalMentionsScreen from "./screens/LegalMentionsScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -27,9 +28,10 @@ export default function App() {
             <Stack.Screen name="SavedFilms" component={SavedFilmsScreen} />
             <Stack.Screen name="Search" component={SearchScreen} />
             <Stack.Screen name="Settings" component={SettingsScreen} />
+            <Stack.Screen name="Legal" component={LegalMentionsScreen} />
           </Stack.Navigator>
         </SafeAreaProvider>
-        <StatusBar style="auto" />
+        <StatusBar style="light" />
       </NavigationContainer>
     </TailwindProvider>
   );

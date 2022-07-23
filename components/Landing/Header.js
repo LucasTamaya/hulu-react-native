@@ -47,7 +47,9 @@ export default function Header({ navigation }) {
           className="bg-[#01ED83] py-4 w-72 flex flex-row justify-center items-center rounded-md"
           onPress={() => navigation.navigate("Login")}
         >
-          <Text className="text-black font-bold uppercase">Log in to my account</Text>
+          <Text className="text-black font-bold uppercase">
+            Log in to my account
+          </Text>
         </TouchableOpacity>
       </View>
     </View>

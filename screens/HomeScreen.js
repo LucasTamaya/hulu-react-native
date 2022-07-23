@@ -9,14 +9,16 @@ import Events from "../components/Landing/Events";
 
 const HomeScreen = ({ navigation }) => {
   return (
-    <SafeAreaView>
-      <ScrollView>
-        <Header navigation={navigation} />
-        <AllTheTvYouLove />
-        <LiveTvMakesItBetter />
-        <Events navigation={navigation} />
-      </ScrollView>
-    </SafeAreaView>
+    <ScrollView className="bg-[#151516]">
+      <Header navigation={navigation} />
+      <SafeAreaView className="h-full">
+        <ScrollView>
+          <AllTheTvYouLove />
+          <LiveTvMakesItBetter />
+          <Events navigation={navigation} />
+        </ScrollView>
+      </SafeAreaView>
+    </ScrollView>
   );
 };
 
