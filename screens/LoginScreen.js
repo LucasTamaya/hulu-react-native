@@ -34,6 +34,7 @@ const LoginScreen = ({ navigation }) => {
 
   const handleLogin = (input) => {
     setError("");
+    Keyboard.dismiss();
     // Tentative de connexion avec l'email et le mot de passe via l'api firebase
     signInWithEmailAndPassword(auth, input.email, input.password)
       // si aucune erreur

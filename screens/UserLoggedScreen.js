@@ -52,8 +52,16 @@ const UserLoggedScreen = () => {
         },
       })}
     >
-      <Tab.Screen name="Catalog" component={CatalogScreen} />
-      <Tab.Screen name="SavedFilms" component={SavedFilmsScreen} />
+      <Tab.Screen
+        name="Catalog"
+        component={CatalogScreen}
+        options={{ unmountOnBlur: true }}
+      />
+      <Tab.Screen
+        name="SavedFilms"
+        component={SavedFilmsScreen}
+        options={{ unmountOnBlur: true }}
+      />
       <Tab.Screen name="Search" component={SearchScreen} />
       <Tab.Screen name="Settings" component={SettingsScreen} />
     </Tab.Navigator>

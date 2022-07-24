@@ -5,6 +5,7 @@ import {
   Dimensions,
   TouchableOpacity,
   KeyboardAvoidingView,
+  Keyboard,
 } from "react-native";
 import React, { useState } from "react";
 import {
@@ -38,6 +39,8 @@ const ChangePassword = ({ setChangePasswordPopUp }) => {
   const [success, setSuccess] = useState("");
 
   const handleInput = (input) => {
+    setError("");
+    Keyboard.dismiss();
     // on récupère les credits de l'utilisateur: email + mot de passe
     const credential = EmailAuthProvider.credential(
       user.email,
@@ -52,7 +55,6 @@ const ChangePassword = ({ setChangePasswordPopUp }) => {
         // on met à jour le mot de passe
         updatePassword(user, input.newPassword)
           .then(() => {
-            setError("");
             // affichage du message de réussite
             setSuccess("Mot de passe modifié");
             // marque un petit temps d'arrêt pour afficher le message

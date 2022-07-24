@@ -7,7 +7,6 @@ import axios from "axios";
 import { db } from "../firebase-config";
 import { getAsyncData } from "../utils/asyncStorage";
 import Header from "../components/Catalog/Header";
-import Footer from "../components/Catalog/Footer";
 import { TMDB_API_KEY } from "@env";
 import MovieCard from "../components/Catalog/MovieCard";
 import DataLoader from "../components/Loaders/DataLoader";
@@ -31,7 +30,8 @@ const SavedFilmsScreen = ({ navigation }) => {
       const filmIds = docSnap.data().moviesList;
       // si liste vide, on affiche un message pour informer l'utilisateur
       if (filmIds.length === 0) {
-        setError("Aucun films sauvegardés pour le moment");
+        setError("Aucun films sauvegardés pour le moment...");
+        setLoading(false);
         return;
       }
       // si liste non vide
@@ -77,12 +77,11 @@ const SavedFilmsScreen = ({ navigation }) => {
         ))}
 
         {error ? (
-          <Text className="text-white text-2xl mt-10">{error}</Text>
+          <Text className="text-white text-2xl mt-10 px-10">{error}</Text>
         ) : (
           <></>
         )}
       </ScrollView>
-      {/* <Footer navigation={navigation} /> */}
     </SafeAreaView>
   );
 };

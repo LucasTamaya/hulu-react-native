@@ -2,7 +2,7 @@
   "expo": {
     "name": "Hulu React Native",
     "slug": "hulu-react-native",
-    "description": "Application mobile qui réplique l'application de films et séries Hulu. Le framework utilisé est React Native",
+    "description": "Application mobile qui réplique l'application de films et séries Hulu. Dans cette appli on peut accéder à un catalogue de films selon des catégories, sauvegardés des films ou encore en rechercher. Les données utilisées proviennent de l'API TMDB (source: https://www.themoviedb.org/?language=en-US). Pour réaliser cette appli, j'ai combiné l'utilisation du framework React Native avec Tailwind CSS.",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

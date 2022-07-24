@@ -8,7 +8,7 @@ const ErrorMessage = ({ message }) => {
 
   return (
     <MotiView
-      className="absolute top-10 p-2 flex-row justify-center"
+      className="absolute top-5 p-2 flex-row justify-center"
       style={{ width: windowWidth }}
       from={{ opacity: 0, left: -200 }}
       animate={{ opacity: 1, left: 0 }}

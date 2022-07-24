@@ -33,12 +33,13 @@ const RegisterScreen = ({ navigation }) => {
   const [success, setSuccess] = useState("");
 
   const handleRegister = (input) => {
+    setError("");
+    Keyboard.dismiss();
     // Enregistrement du nouvel utilisateur via l'api de firebase
     createUserWithEmailAndPassword(auth, input.email, input.password)
       // si aucune erreur
       .then((userCredential) => {
         const user = userCredential.user;
-        setError("");
         setSuccess("Compte crée avec succès");
         // marque un temps d'arrêt pour afficher le message
         setTimeout(() => {
