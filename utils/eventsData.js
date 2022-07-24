@@ -1,3 +1,5 @@
+// data pour les événements au niveau du home screen
+
 const eventsData = [
   {
     title: "Live Sports",

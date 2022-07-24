@@ -1,3 +1,5 @@
+// data pour les illustrations au niveau du home screen
+
 const coversData = [
   {
     details: "Past & Current Seasons",

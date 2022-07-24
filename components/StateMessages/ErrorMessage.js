@@ -1,13 +1,26 @@
-import { TouchableOpacity, Text } from "react-native";
+import { Text, View, Dimensions } from "react-native";
 import React from "react";
 import { ShieldExclamationIcon } from "react-native-heroicons/outline";
+import { MotiView } from "moti";
 
 const ErrorMessage = ({ message }) => {
+  const windowWidth = Dimensions.get("window").width;
+
   return (
-    <TouchableOpacity className="fixed top-10 w-fit flex-row items-center gap-x-2 bg-red-500 p-3 rounded transition ease animate-authTransitionInSm">
-      <Text className="text-white font-bold">{message}</Text>
-      <ShieldExclamationIcon size={20} color="#fff" />
-    </TouchableOpacity>
+    <MotiView
+      className="absolute top-10 p-2 flex-row justify-center"
+      style={{ width: windowWidth }}
+      from={{ opacity: 0, left: -200 }}
+      animate={{ opacity: 1, left: 0 }}
+      exit={{
+        opacity: 0,
+      }}
+    >
+      <View className="w-fit flex-row items-center gap-x-2 bg-red-500 p-3 rounded">
+        <Text className="text-white font-bold">{message}</Text>
+        <ShieldExclamationIcon size={20} color="#fff" />
+      </View>
+    </MotiView>
   );
 };
 

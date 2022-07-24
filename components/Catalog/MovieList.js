@@ -16,7 +16,7 @@ const MovieList = ({ index, docRef }) => {
     setLoading(true);
     setError("");
 
-    // récupère l'url dans la liste des requêtes à l'index correspondant, par défault index = 0
+    // récupère l'url dans la liste des requêtes, à l'index correspondant, par défault index = 0. La navigation va nous permettre de varier l'index selon la catégorie de films qu'on souhaite afficher
     const url = requests[index];
 
     // si aucune erreur dans la requête, on récupère la data dans un tableau
@@ -27,7 +27,6 @@ const MovieList = ({ index, docRef }) => {
       setTimeout(() => {
         setLoading(false);
       }, 1800);
-      console.log("nouvelle data reçu");
       // si erreur pendant la requête, on affiche un message d'erreur
     } catch (error) {
       setError("Une erreur inconnue est survenue");

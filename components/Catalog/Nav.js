@@ -3,7 +3,7 @@ import React from "react";
 
 const Nav = ({ setIndex }) => {
   return (
-    <ScrollView horizontal={true} className="flex-row gap-x-10 mt-7">
+    <ScrollView horizontal={true} className="flex-row gap-x-10">
       <TouchableOpacity onPress={() => setIndex(0)}>
         <Text className="text-white font-bold text-lg pl-10">Trending</Text>
       </TouchableOpacity>

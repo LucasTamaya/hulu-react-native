@@ -1,22 +1,21 @@
 {
   "expo": {
-    "name": "hulu-react-native",
+    "name": "Hulu React Native",
     "slug": "hulu-react-native",
+    "description": "Application mobile qui réplique l'application de films et séries Hulu. Le framework utilisé est React Native",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/images/logo.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#151516"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },

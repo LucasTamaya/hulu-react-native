@@ -5,7 +5,6 @@ import {
   Dimensions,
   TouchableOpacity,
   KeyboardAvoidingView,
-  TouchableWithoutFeedback,
 } from "react-native";
 import React, { useState } from "react";
 import {
@@ -15,6 +14,7 @@ import {
 } from "firebase/auth";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { MotiView, AnimatePresence } from "moti";
 
 import { auth } from "../../../firebase-config";
 import { updatePwdValidationSchema } from "../../../utils/validationSchemas";
@@ -74,9 +74,14 @@ const ChangePassword = ({ setChangePasswordPopUp }) => {
   };
 
   return (
-    <View
+    <MotiView
       className="absolute top-0 left-0 w-full flex flex-col justify-center items-center bg-black/70 px-5"
       style={{ height: windowHeight }}
+      from={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{
+        opacity: 0,
+      }}
     >
       <View className="bg-white w-full p-5 rounded-md">
         <Text className="font-bold mb-2 uppercase">Mot de passe actuel</Text>
@@ -140,11 +145,13 @@ const ChangePassword = ({ setChangePasswordPopUp }) => {
         </TouchableOpacity>
       </View>
       {/* Si aucune erreur lors de la requête */}
-      {success ? <SuccessMessage message={success} /> : <></>}
+      <AnimatePresence>
+        {success ? <SuccessMessage message={success} /> : <></>}
+      </AnimatePresence>
 
       {/* Si erreur lors de la requête */}
       {error ? <ErrorMessage message={error} /> : <></>}
-    </View>
+    </MotiView>
   );
 };
 

@@ -41,7 +41,7 @@ const LiveTvMakesItBetter = () => {
           </Text>
           <ArrowRightIcon size={15} color="#fff" />
         </View>
-        <ArrowDownIcon size={15} color="#fff"/>
+        <ArrowDownIcon size={15} color="#fff" />
       </View>
     </ScrollView>
   );

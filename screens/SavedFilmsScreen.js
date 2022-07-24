@@ -18,6 +18,7 @@ const SavedFilmsScreen = ({ navigation }) => {
   const [data, setData] = useState([]);
   const [error, setError] = useState("");
 
+  // récupère les films sauvegardés par l'utilisateur via la liste firebase
   const getData = async () => {
     setLoading(true);
     const uid = await getAsyncData();
@@ -55,7 +56,6 @@ const SavedFilmsScreen = ({ navigation }) => {
 
   useEffect(() => {
     getData();
-
     // clean up funtion pour réinitialiser le tableau lorsqu'on démonte le composant
     return () => {
       setData([]);
@@ -64,9 +64,9 @@ const SavedFilmsScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView className="bg-[#151516] h-full">
-      <ScrollView className="bg-[#151516]">
-        <Header />
-        <Text className="text-white text-2xl font-bold mt-10 ml-10">
+      <Header />
+      <ScrollView className="bg-[#151516] mt-10">
+        <Text className="text-white text-2xl font-bold ml-10">
           Films sauvegardés
         </Text>
 
@@ -82,7 +82,7 @@ const SavedFilmsScreen = ({ navigation }) => {
           <></>
         )}
       </ScrollView>
-      <Footer navigation={navigation} />
+      {/* <Footer navigation={navigation} /> */}
     </SafeAreaView>
   );
 };

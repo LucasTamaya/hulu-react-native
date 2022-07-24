@@ -376,7 +376,7 @@ const LegalMentionsScreen = ({ navigation }) => {
           </Text>
         </View>
       </ScrollView>
-      <Footer navigation={navigation} />
+      {/* <Footer navigation={navigation} /> */}
     </SafeAreaView>
   );
 };

@@ -11,7 +11,7 @@ import Footer from "../components/Catalog/Footer";
 import MovieList from "../components/Catalog/MovieList";
 
 const CatalogScreen = ({ navigation }) => {
-  // index afin de sélectionner une catégorie dans la liste des catégories dispo
+  // index afin de changer de catégorie pour afficher différents types de films
   const [index, setIndex] = useState(0);
 
   const [docRef, setDocRef] = useState("");
@@ -28,12 +28,12 @@ const CatalogScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView className="bg-[#151516] h-full">
-      <ScrollView className="bg-[#151516]">
-        <Header />
+      <Header />
+      <ScrollView className="bg-[#151516] mt-10">
         <Nav setIndex={setIndex} />
         <MovieList index={index} docRef={docRef} />
       </ScrollView>
-      <Footer navigation={navigation} />
+      {/* <Footer navigation={navigation} /> */}
     </SafeAreaView>
   );
 };

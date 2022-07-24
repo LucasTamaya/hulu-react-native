@@ -28,7 +28,7 @@ const SearchScreen = ({ navigation }) => {
         <Header />
         <SearchBar docRef={docRef} />
       </ScrollView>
-      <Footer navigation={navigation} />
+      {/* <Footer navigation={navigation} /> */}
     </SafeAreaView>
   );
 };

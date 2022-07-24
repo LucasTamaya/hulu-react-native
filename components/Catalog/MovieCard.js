@@ -13,14 +13,15 @@ const MovieCard = ({ data, docRef }) => {
   // récupération de la liste d'IDS des films sauvegardés
   const getSavedFilmIds = async () => {
     const docSnap = await getDoc(docRef);
-    // si le document existe
+    // si le document existe dans firebase
     if (docSnap.exists()) {
       const filmIds = docSnap.data().moviesList;
-      // si le document est vide
+      // si la liste est vide
       if (filmIds.length === 0) {
         return;
       }
-      // comparaison de l'id du film qu'on observe avec celui de la liste dans firebase, afin de voir si il a été sauvegardé ou non, pour adapter l'icon dans les détails
+      // si liste non vide
+      // on compare l'id du film qu'on observe avec celui de la liste dans firebase, afin de voir si il a été sauvegardé ou non, pour adapter l'icon Heart dans MovieDetails
       filmIds.map((id) => {
         if (id === data.id) {
           setSave((prev) => !prev);
@@ -50,6 +51,7 @@ const MovieCard = ({ data, docRef }) => {
             className="w-full h-full"
             alt="Movie image"
           />
+          {/* Détails du film */}
           {showDetails && (
             <MovieDetails
               data={data}

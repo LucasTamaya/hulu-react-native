@@ -8,11 +8,12 @@ import { HeartIcon as HeartIconOutlined } from "react-native-heroicons/outline";
 import { arrayRemove, arrayUnion, updateDoc } from "firebase/firestore";
 
 const MovieDetails = ({ data, save, setSave, docRef }) => {
+  // ajoute l'id du film dans la liste d'ids de films sauvegardés au niveau de firebase
   const saveFilm = async () => {
-    // update de la liste des films sauvegardés
     await updateDoc(docRef, { moviesList: arrayUnion(data.id) });
   };
 
+  // supprime l'id du film dans la liste d'ids de films sauvegardés au niveau de firebase
   const unsaveFilm = async () => {
     await updateDoc(docRef, { moviesList: arrayRemove(data.id) });
   };
@@ -26,7 +27,7 @@ const MovieDetails = ({ data, save, setSave, docRef }) => {
         numberOfLines={12}
         className="text-white text-base mb-3 max-h-[310px]"
       >
-        {data.overview}
+        {data.overview || "Aucune description pour ce film."}
       </Text>
 
       <View className="flex-row items-center justify-between mb-3">
@@ -50,6 +51,7 @@ const MovieDetails = ({ data, save, setSave, docRef }) => {
         }}
         className="w-[30px] h-[30px] flex-row justify-center items-center"
       >
+        {/* si film sauvegardé, coeur plein, sinon coeur vide */}
         {save ? (
           <HeartIconSolid size={25} color="#fff" />
         ) : (

@@ -1,20 +1,22 @@
 import { View, Text, ScrollView, TouchableOpacity } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ArrowRightIcon } from "react-native-heroicons/solid";
 import {
   LogoutIcon,
   InformationCircleIcon,
   EyeOffIcon,
-  IdentificationIcon,
 } from "react-native-heroicons/outline";
+import { AnimatePresence } from "moti";
 
 import Header from "../components/Catalog/Header";
-import Footer from "../components/Catalog/Footer";
 import Logout from "../components/Catalog/SettingsPopUp/Logout";
 import ChangePassword from "../components/Catalog/SettingsPopUp/ChangePassword";
 
-const SettingsScreen = ({ navigation }) => {
+const SettingsScreen = () => {
+  const navigation = useNavigation();
+
   const [logOutPopUp, setLogOutPopUp] = useState(false);
   const [changePasswordPopUp, setChangePasswordPopUp] = useState(false);
 
@@ -50,7 +52,9 @@ const SettingsScreen = ({ navigation }) => {
         <View className="border-t border-b border-white">
           <TouchableOpacity
             className="flex-row justify-between items-center p-5"
-            onPress={() => {navigation.navigate("Legal")}}
+            onPress={() => {
+              navigation.navigate("Legal");
+            }}
           >
             <View className="flex-row items-center">
               <InformationCircleIcon size={20} color="#fff" />
@@ -60,14 +64,18 @@ const SettingsScreen = ({ navigation }) => {
           </TouchableOpacity>
         </View>
       </ScrollView>
-      {logOutPopUp && (
-        <Logout navigation={navigation} setLogOutPopUp={setLogOutPopUp} />
-      )}
 
-      {changePasswordPopUp && (
-        <ChangePassword setChangePasswordPopUp={setChangePasswordPopUp} />
-      )}
-      <Footer navigation={navigation} />
+      <AnimatePresence>
+        {logOutPopUp && (
+          <Logout navigation={navigation} setLogOutPopUp={setLogOutPopUp} />
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {changePasswordPopUp && (
+          <ChangePassword setChangePasswordPopUp={setChangePasswordPopUp} />
+        )}
+      </AnimatePresence>
     </SafeAreaView>
   );
 };

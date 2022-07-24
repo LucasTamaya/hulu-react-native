@@ -20,7 +20,7 @@ const SearchBar = ({ docRef }) => {
   const [data, setData] = useState([]);
   const [error, setError] = useState("");
 
-  // fonction qui lance la recherche vers l'api RMDB
+  // lance la recherche du film via l'api TMDB
   const handleSearch = async () => {
     setLoading(true);
     setError("");
@@ -28,7 +28,7 @@ const SearchBar = ({ docRef }) => {
       const data = await axios.get(
         `https://api.themoviedb.org/3/search/multi?api_key=${TMDB_API_KEY}&language=fr-FR&query=${searchInput}&page=1&include_adult=false`
       );
-      // si aucune donnée ne corresponde à la recherche
+      // si aucune donnée ne corresponde à la recherche, on affiche un message d'erreur
       if (data.data.results.length === 0) {
         setError(`Nous n'avons rien trouvé à propos de ${searchInput}...`);
         setLoading(false);
@@ -42,7 +42,7 @@ const SearchBar = ({ docRef }) => {
           setLoading(false);
         }, 1800);
       }
-      // si erreur pendant la requête
+      // si erreur pendant la requête, on affiche un message d'erreur
     } catch (error) {
       console.log(error.message);
       setError("Une erreur au niveau du serveur est survenue...");

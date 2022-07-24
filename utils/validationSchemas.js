@@ -1,5 +1,7 @@
 import * as Yup from "yup";
 
+// schema de mes formulaires pour gérer facilement les erreurs
+
 const loginValidationSchema = Yup.object({
   email: Yup.string()
     .email("Cette adresse email est invalide")

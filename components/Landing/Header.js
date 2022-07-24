@@ -19,7 +19,6 @@ export default function Header({ navigation }) {
         style={{ height: windowHeight }}
         className="w-full"
       />
-
       <View className="absolute top-0 left-0 w-full flex flex-row justify-between items-center p-5">
         <Image
           source={require("../../assets/images/logo.png")}

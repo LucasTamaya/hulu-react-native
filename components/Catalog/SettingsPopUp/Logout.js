@@ -1,12 +1,18 @@
 import { View, Text, Dimensions, TouchableOpacity } from "react-native";
 import React from "react";
+import { MotiView } from "moti";
 
 const Logout = ({ navigation, setLogOutPopUp }) => {
   const windowHeight = Dimensions.get("window").height;
   return (
-    <View
+    <MotiView
       className="absolute w-full bg-black/70 flex-row justify-center items-center px-5"
       style={{ height: windowHeight }}
+      from={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{
+        opacity: 0,
+      }}
     >
       <View className="w-full bg-white rounded-md p-5">
         <Text className="text-lg text-center font-bold mb-8">
@@ -27,7 +33,7 @@ const Logout = ({ navigation, setLogOutPopUp }) => {
           <Text className="uppercase text-white font-bold">Me déconnecter</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </MotiView>
   );
 };
 
